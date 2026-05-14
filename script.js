@@ -51,8 +51,8 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   });
 });
 
-// ===== FORM SUBMISSION =====
-function handleSubmit(e) {
+// ===== FORM SUBMISSION (saves to Supabase) =====
+async function handleSubmit(e) {
   e.preventDefault();
   const btn = document.getElementById('submitBtn');
   const originalText = btn.textContent;
@@ -61,18 +61,48 @@ function handleSubmit(e) {
   btn.style.opacity = '0.7';
   btn.disabled = true;
 
-  setTimeout(() => {
+  // Gather form data
+  const fullName = document.getElementById('firstName').value + ' ' + document.getElementById('lastName').value;
+  const email = document.getElementById('email').value;
+  const phone = document.getElementById('phone').value || null;
+  const procedure = document.getElementById('procedure').value || null;
+  const messageText = document.getElementById('message').value || null;
+  const message = procedure ? `[${procedure}] ${messageText || ''}` : messageText;
+
+  try {
+    // Insert into Supabase contacts table
+    const { data, error } = await window.db
+      .from('contacts')
+      .insert([{ full_name: fullName, email: email, phone: phone, message: message }]);
+
+    if (error) throw error;
+
+    // Success
     btn.textContent = '✓ Request Sent!';
     btn.style.opacity = '1';
     btn.style.background = 'linear-gradient(135deg, #2ecc71, #27ae60)';
-    
+    console.log('✅ Contact saved to Supabase:', data);
+
     setTimeout(() => {
       btn.textContent = originalText;
       btn.style.background = '';
       btn.disabled = false;
       document.getElementById('contactForm').reset();
     }, 3000);
-  }, 1500);
+
+  } catch (err) {
+    // Error handling
+    console.error('❌ Supabase error:', err);
+    btn.textContent = '✗ Error — Try Again';
+    btn.style.opacity = '1';
+    btn.style.background = 'linear-gradient(135deg, #e74c3c, #c0392b)';
+
+    setTimeout(() => {
+      btn.textContent = originalText;
+      btn.style.background = '';
+      btn.disabled = false;
+    }, 3000);
+  }
 }
 
 // ===== COUNTER ANIMATION FOR HERO STATS =====
