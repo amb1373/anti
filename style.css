@@ -388,13 +388,16 @@ section {
   position: relative;
 }
 
-.about-image-main::after {
-  content: '👨‍⚕️';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-size: 6rem;
+.about-image-main img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  transition: transform 0.6s ease;
+}
+
+.about-image:hover .about-image-main img {
+  transform: scale(1.03);
 }
 
 .about-badge {
@@ -562,6 +565,76 @@ section {
 .service-link:hover {
   gap: 12px;
   color: var(--gold);
+}
+
+/* ===== BEFORE & AFTER RESULTS ===== */
+.results {
+  background: var(--white);
+}
+
+.results-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+}
+
+.result-card {
+  background: var(--bg-light);
+  border-radius: var(--radius);
+  overflow: hidden;
+  transition: var(--transition);
+  border: 1px solid rgba(0, 0, 0, 0.04);
+}
+
+.result-card:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-lg);
+}
+
+.result-image {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+}
+
+.result-image img {
+  width: 100%;
+  height: 320px;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+
+.result-card:hover .result-image img {
+  transform: scale(1.05);
+}
+
+.result-info {
+  padding: 28px 28px 32px;
+}
+
+.result-info h3 {
+  font-size: 1.2rem;
+  color: var(--primary);
+  margin-bottom: 8px;
+}
+
+.result-info p {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+  margin-bottom: 16px;
+}
+
+.results-disclaimer {
+  text-align: center;
+  margin-top: 40px;
+}
+
+.results-disclaimer p {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  font-style: italic;
+  opacity: 0.7;
 }
 
 /* ===== WHY CHOOSE ===== */
@@ -960,6 +1033,7 @@ section {
 @media (max-width: 1024px) {
   .hero h1 { font-size: 3rem; }
   .services-grid { grid-template-columns: repeat(2, 1fr); }
+  .results-grid { grid-template-columns: repeat(2, 1fr); }
   .why-grid { grid-template-columns: repeat(2, 1fr); }
   .footer-grid { grid-template-columns: 1fr 1fr; gap: 36px; }
 }
@@ -988,6 +1062,7 @@ section {
   
   .about-grid { grid-template-columns: 1fr; gap: 40px; }
   .services-grid { grid-template-columns: 1fr; }
+  .results-grid { grid-template-columns: 1fr; }
   .testimonials-grid { grid-template-columns: 1fr; }
   .contact-grid { grid-template-columns: 1fr; }
   .why-grid { grid-template-columns: 1fr; }
