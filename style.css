@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap');
+@import url('https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css');
 
 *, *::before, *::after {
   margin: 0;
@@ -1073,4 +1074,203 @@ section {
   .form-row { grid-template-columns: 1fr; }
   
   .footer-bottom { flex-direction: column; gap: 12px; text-align: center; }
+}
+
+/* ===== LANGUAGE SWITCHER ===== */
+.lang-switch {
+  background: rgba(255, 255, 255, 0.12) !important;
+  padding: 6px 16px !important;
+  border-radius: 50px !important;
+  font-size: 0.85rem !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.5px;
+  transition: var(--transition);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.lang-switch:hover {
+  background: var(--gold) !important;
+  color: var(--primary) !important;
+  border-color: var(--gold) !important;
+}
+
+.navbar.scrolled .lang-switch {
+  background: rgba(26, 26, 46, 0.08) !important;
+  border-color: rgba(26, 26, 46, 0.15);
+}
+
+.navbar.scrolled .lang-switch:hover {
+  background: var(--gold) !important;
+  color: var(--primary) !important;
+}
+
+/* ===== SUCCESS POPUP ===== */
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(26, 26, 46, 0.6);
+  backdrop-filter: blur(8px);
+  z-index: 10000;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.popup-overlay.active {
+  display: flex;
+  opacity: 1;
+}
+
+.popup-card {
+  background: var(--white);
+  border-radius: 24px;
+  padding: 52px 48px;
+  text-align: center;
+  max-width: 440px;
+  width: 90%;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.25);
+  transform: scale(0.8) translateY(20px);
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.popup-overlay.active .popup-card {
+  transform: scale(1) translateY(0);
+}
+
+.popup-icon {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 24px;
+  background: linear-gradient(135deg, #2ecc71, #27ae60);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.2rem;
+  color: white;
+  font-weight: 700;
+  box-shadow: 0 8px 25px rgba(46, 204, 113, 0.35);
+  animation: popIn 0.5s ease 0.2s both;
+}
+
+@keyframes popIn {
+  from { transform: scale(0); }
+  to { transform: scale(1); }
+}
+
+.popup-card h3 {
+  font-size: 1.6rem;
+  margin-bottom: 12px;
+  color: var(--primary);
+}
+
+.popup-card p {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  line-height: 1.7;
+  margin-bottom: 28px;
+}
+
+.popup-btn {
+  display: inline-block;
+  background: linear-gradient(135deg, var(--gold), var(--gold-light));
+  color: var(--primary);
+  padding: 14px 44px;
+  border-radius: 50px;
+  font-weight: 600;
+  font-size: 1rem;
+  border: none;
+  cursor: pointer;
+  transition: var(--transition);
+  font-family: inherit;
+}
+
+.popup-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(201, 169, 110, 0.4);
+}
+
+/* ===== RTL SUPPORT (Persian) ===== */
+body.rtl {
+  font-family: 'Vazirmatn', 'Inter', sans-serif;
+  direction: rtl;
+  text-align: right;
+}
+
+body.rtl h1, body.rtl h2, body.rtl h3, body.rtl h4, body.rtl h5 {
+  font-family: 'Vazirmatn', 'Playfair Display', serif;
+}
+
+body.rtl .section-label::before {
+  display: none;
+}
+
+body.rtl .section-label::after {
+  content: '';
+  width: 30px;
+  height: 2px;
+  background: var(--accent);
+  margin-right: 8px;
+}
+
+body.rtl .about-badge {
+  right: auto;
+  left: -20px;
+}
+
+body.rtl .hero-content {
+  text-align: right;
+}
+
+body.rtl .nav-links {
+  direction: ltr;
+}
+
+body.rtl .service-link {
+  direction: rtl;
+}
+
+body.rtl .contact-form {
+  text-align: right;
+}
+
+body.rtl .contact-form input,
+body.rtl .contact-form textarea,
+body.rtl .contact-form select {
+  text-align: right;
+  font-family: 'Vazirmatn', 'Inter', sans-serif;
+}
+
+body.rtl .popup-card {
+  font-family: 'Vazirmatn', 'Inter', sans-serif;
+}
+
+body.rtl .popup-btn {
+  font-family: 'Vazirmatn', 'Inter', sans-serif;
+}
+
+body.rtl .about-feature {
+  direction: rtl;
+}
+
+body.rtl .contact-item {
+  direction: rtl;
+}
+
+body.rtl .testimonial-card blockquote {
+  direction: rtl;
+}
+
+body.rtl .footer-col a:hover {
+  padding-left: 0;
+  padding-right: 4px;
+}
+
+body.rtl .btn-submit {
+  font-family: 'Vazirmatn', 'Inter', sans-serif;
 }

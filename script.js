@@ -57,7 +57,7 @@ async function handleSubmit(e) {
   const btn = document.getElementById('submitBtn');
   const originalText = btn.textContent;
   
-  btn.textContent = 'Sending...';
+  btn.textContent = document.documentElement.lang === 'fa' ? 'در حال ارسال...' : 'Sending...';
   btn.style.opacity = '0.7';
   btn.disabled = true;
 
@@ -77,23 +77,21 @@ async function handleSubmit(e) {
 
     if (error) throw error;
 
-    // Success
-    btn.textContent = '✓ Request Sent!';
-    btn.style.opacity = '1';
-    btn.style.background = 'linear-gradient(135deg, #2ecc71, #27ae60)';
+    // Success — show popup
     console.log('✅ Contact saved to Supabase:', data);
+    showPopup();
 
-    setTimeout(() => {
-      btn.textContent = originalText;
-      btn.style.background = '';
-      btn.disabled = false;
-      document.getElementById('contactForm').reset();
-    }, 3000);
+    // Reset form and button
+    btn.textContent = originalText;
+    btn.style.opacity = '1';
+    btn.style.background = '';
+    btn.disabled = false;
+    document.getElementById('contactForm').reset();
 
   } catch (err) {
     // Error handling
     console.error('❌ Supabase error:', err);
-    btn.textContent = '✗ Error — Try Again';
+    btn.textContent = document.documentElement.lang === 'fa' ? '✗ خطا — دوباره تلاش کنید' : '✗ Error — Try Again';
     btn.style.opacity = '1';
     btn.style.background = 'linear-gradient(135deg, #e74c3c, #c0392b)';
 
@@ -104,6 +102,32 @@ async function handleSubmit(e) {
     }, 3000);
   }
 }
+
+// ===== SUCCESS POPUP =====
+function showPopup() {
+  const popup = document.getElementById('successPopup');
+  popup.style.display = 'flex';
+  // Trigger reflow for animation
+  requestAnimationFrame(() => {
+    popup.classList.add('active');
+  });
+}
+
+function closePopup() {
+  const popup = document.getElementById('successPopup');
+  popup.classList.remove('active');
+  setTimeout(() => {
+    popup.style.display = 'none';
+  }, 300);
+}
+
+// Close popup on overlay click
+document.addEventListener('click', function(e) {
+  const popup = document.getElementById('successPopup');
+  if (e.target === popup) {
+    closePopup();
+  }
+});
 
 // ===== COUNTER ANIMATION FOR HERO STATS =====
 function animateCounters() {
