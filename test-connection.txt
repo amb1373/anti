@@ -1,0 +1,3 @@
+Hello GitHub! 🚀
+This file was pushed from my Mac to test the connection.
+Date: 2026-05-14
