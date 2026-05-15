@@ -1,0 +1,9 @@
+{
+  "redirects": [
+    {
+      "source": "/",
+      "destination": "/Dr.besh/",
+      "permanent": false
+    }
+  ]
+}
